@@ -3,6 +3,7 @@ package com.rest.learning.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class SecurityConfigJdbcStyle extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
@@ -25,13 +27,12 @@ public class SecurityConfigJdbcStyle extends WebSecurityConfigurerAdapter {
                 .withDefaultSchema()
                 .withUser(User.withUsername("Angel").password("albert").roles("lead"))
                 .withUser(User.withUsername("Windy").password("christine").roles("admin"));
-
     }
 
-    @Bean
+   /* @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
@@ -43,7 +44,6 @@ public class SecurityConfigJdbcStyle extends WebSecurityConfigurerAdapter {
                 .antMatchers("/lead").hasRole("lead")
                 .antMatchers("/employeeName").hasRole("admin")
                 .anyRequest().authenticated().and().formLogin();
-        ;
 
     }
 }
