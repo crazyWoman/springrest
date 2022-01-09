@@ -8,10 +8,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +22,8 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -29,6 +34,11 @@ public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
                 .withUser("albert").password(passwordEncoder().encode("miriyam")).roles("lead")
                 .and()
                 .withUser("rhea").password(passwordEncoder().encode("kerala")).roles("admin", "lead");
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .withDefaultSchema()
+                .withUser(User.withUsername("Angel").password(passwordEncoder().encode("albert")).roles("lead"))
+                .withUser(User.withUsername("Windy").password(passwordEncoder().encode("christine")).roles("admin"));
     }
 
     @Bean

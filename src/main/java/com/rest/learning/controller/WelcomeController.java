@@ -16,7 +16,7 @@ public class WelcomeController {
 
     @GetMapping("/welcome")
     public String welcomeWorld(){
-        return "Welcome world";
+        return SecurityContextHolder.getContext().getAuthentication().getName()+"Welcome world";
     }
 
     @GetMapping("/employeeName")
@@ -26,13 +26,13 @@ public class WelcomeController {
 
     @RequestMapping(value ="/welcomeworld",method = RequestMethod.GET)
     public String welcomeToWorld(){
-        return "Welcome world";
+        return SecurityContextHolder.getContext().getAuthentication().getName()+"Welcome world";
     }
 
     @RequestMapping(value ="/lead",method = RequestMethod.GET)
     public String leadName(){
-        SecurityContextHolder.clearContext();
-        return "Angel Hernandez";
+       // SecurityContextHolder.clearContext();
+        return SecurityContextHolder.getContext().getAuthentication().getName()+"Angel Hernandez";
     }
 
    /* @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
