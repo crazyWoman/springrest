@@ -32,11 +32,10 @@ public class WelcomeController {
     @RequestMapping(value ="/lead",method = RequestMethod.GET)
     public String leadName(){
         SecurityContextHolder.clearContext();
-
         return "Angel Hernandez";
     }
 
-    @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
+   /* @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
     public String logoutDo(HttpServletRequest request, HttpServletResponse response){
         HttpSession session= request.getSession(false);
         SecurityContextHolder.clearContext();
@@ -49,5 +48,5 @@ public class WelcomeController {
         }
 
         return "logout";
-    }
+    }*/
 }
