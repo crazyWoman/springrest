@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@Order(2)
 public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
@@ -52,10 +51,12 @@ public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .httpBasic(). authenticationEntryPoint(authenticationEntryPoint).and()
                 .authorizeRequests()
-                .antMatchers("/welcome").permitAll()
+     /*           .antMatchers("/welcome").permitAll()
                 .antMatchers("/lead").hasRole("lead")
-                .antMatchers("/employeeName").hasRole("admin")
-                .anyRequest().authenticated()
+                .antMatchers("/employeeName").hasRole("admin")*/
+                .mvcMatchers("/kidsBooks").hasRole("lead")
+                .anyRequest().authenticated().and()
+
                 ;
 
     }
