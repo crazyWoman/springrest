@@ -45,11 +45,18 @@ public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * /kidsBooks/
+     * /kidsBooks.html
+     * /kidsBooks.abc
+     * @param http
+     * @throws Exception
+     */
    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .httpBasic(). authenticationEntryPoint(authenticationEntryPoint).and()
+                .httpBasic(). and()
                 .authorizeRequests()
      /*           .antMatchers("/welcome").permitAll()
                 .antMatchers("/lead").hasRole("lead")
