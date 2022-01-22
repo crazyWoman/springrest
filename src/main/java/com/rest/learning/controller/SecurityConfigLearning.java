@@ -32,7 +32,7 @@ public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("albert").password(passwordEncoder().encode("miriyam")).roles("lead")
                 .and()
-                .withUser("rhea").password(passwordEncoder().encode("kerala")).roles("admin", "lead");
+                .withUser("rhea").password(passwordEncoder().encode("kerala")).roles("admin", "lead").authorities("manager");
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .withDefaultSchema()
@@ -54,7 +54,7 @@ public class SecurityConfigLearning extends WebSecurityConfigurerAdapter {
      /*           .antMatchers("/welcome").permitAll()
                 .antMatchers("/lead").hasRole("lead")
                 .antMatchers("/employeeName").hasRole("admin")*/
-                .mvcMatchers("/kidsBooks").hasRole("lead")
+                .mvcMatchers("/kidsBooks").permitAll()
                 .anyRequest().authenticated().and()
 
                 ;

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 
 @RestController
 public class WelcomeController {
@@ -23,7 +25,8 @@ public class WelcomeController {
 
     @RequestMapping(value ="/welcomeworld",method = RequestMethod.GET)
     public String welcomeToWorld(){
-        return SecurityContextHolder.getContext().getAuthentication().getName()+"Welcome world";
+
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal()+"Welcome world";
     }
 
     @RequestMapping(value ="/lead",method = RequestMethod.GET)
